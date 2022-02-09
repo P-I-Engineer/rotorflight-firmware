@@ -228,28 +228,28 @@ static void mixerUpdateInputs(void)
         mixInput[MIXER_IN_STABILIZED_YAW] = throttle;
     }
     else if (mixerIsTailMode(TAIL_MODE_BIDIRECTIONAL)) {
-	// Yaw input value
-	const float yaw = mixInput[MIXER_IN_STABILIZED_YAW];
+        // Yaw input value
+        const float yaw = mixInput[MIXER_IN_STABILIZED_YAW];
 
-	// Thrust linearization
-	float throttle = signf(yaw) * sqrtf(fabsf(yaw));
+        // Thrust linearization
+        float throttle = signf(yaw) * sqrtf(fabsf(yaw));
 
-	// Apply minimum throttle
-	if (isSpooledUp()) {
-	    if (throttle > -tailMotorIdle && throttle < tailMotorIdle)
-		throttle = tailMotorDirection * tailMotorIdle;
-	} else {
-	    if (mixInput[MIXER_IN_STABILIZED_THROTTLE] < 0.01f)
-		throttle = 0;
-	    else if (mixInput[MIXER_IN_STABILIZED_THROTTLE] < 0.25f)
-		throttle *= mixInput[MIXER_IN_STABILIZED_THROTTLE] / 0.25f;
-	}
+        // Apply minimum throttle
+        if (isSpooledUp()) {
+            if (throttle > -tailMotorIdle && throttle < tailMotorIdle)
+                throttle = tailMotorDirection * tailMotorIdle;
+        } else {
+            if (mixInput[MIXER_IN_STABILIZED_THROTTLE] < 0.01f)
+                throttle = 0;
+            else if (mixInput[MIXER_IN_STABILIZED_THROTTLE] < 0.25f)
+                throttle *= mixInput[MIXER_IN_STABILIZED_THROTTLE] / 0.25f;
+        }
 
-	// Direction sign
-	tailMotorDirection = signf(throttle);
+        // Direction sign
+        tailMotorDirection = signf(throttle);
 
-	// Yaw is now tail motor throttle
-	mixInput[MIXER_IN_STABILIZED_YAW] = throttle;
+        // Yaw is now tail motor throttle
+        mixInput[MIXER_IN_STABILIZED_YAW] = throttle;
     }
 }
 
