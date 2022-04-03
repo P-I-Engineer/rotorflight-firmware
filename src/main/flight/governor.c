@@ -920,7 +920,7 @@ void governorInitProfile(const pidProfile_t *pidProfile)
         govKd = pidProfile->gov_d_gain / 1000.0f;
         govKf = pidProfile->gov_f_gain / 100.0f;
 
-        govTTAGain   = pidProfile->gov_tta_gain / -250.0f;
+        govTTAGain   = pidProfile->gov_tta_gain / -25.0f;
         govTTALimit  = pidProfile->gov_tta_limit / 100.0f;
 
         if (govMode >= GM_STANDARD)
